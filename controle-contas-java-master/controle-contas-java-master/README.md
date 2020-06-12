@@ -7,7 +7,7 @@
 
 - A aplicação foi desenvolvida utilizando: Spring Boot, Rest Services, JPA/Hibernate, Thymeleaf, Maven e h2database;
 - Ao inicializar a aplicação, serão inseridas Contas e Clientes fictícios automaticamente;
-- E os testes da aplicação foram feitos com: Cucumber / JUnit (Classes "Mocked");
+- E os testes da aplicação foram feitos com: Selenium;
 
 - Se você quiser fazer um build completo, execute o comando 	   mvn clean install
 - Se você quiser somente executar os testes, execute o comando     mvn test
