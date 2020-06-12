@@ -24,34 +24,3 @@
 * 1 Tela para realizar Transferências ou Aportes;
 * 1 Tela de consulta de históricos de Transferências, onde também podem ser realizados os Estornos;
 
-
-#########################################
-############## ENGLISH ###############
-#########################################
-
-
- Application developed for Accounts Management
-
-- The application was developed using: Spring Boot, Rest Services, JPA / Hibernate, Thymeleaf, Maven and h2database;
-- When initializing the application, Fictitious Accounts and Clients will be inserted automatically
-- And the tests of the application with: Cucumber / JUnit (Mocked classes);  
-
-- If you want a Full build, execute the command 				 mvn clean install
-- If you want to Run only the tests, execute the command		 mvn test
-
-- To execute the project, you must follow one of the two existing paths:
-* Load the project into an IDE (like Eclipse) and run its Main class (HubfintechApplication) as a Java Application.
-
-* Go in the path that are the the pom.xml and run the command     mvn spring-boot: run
-* Open the browser and access the application through  		      http://localhost:8080
-
-- The system consists of 4 main functions:
-* 1 Image registration screen, where you must provide the Image Type;
-* 1 query and image management screen, where the images can be filtered by the fields of the inclusion and additionally allows the exclusion and / or change of the same.
-* 1 Product registration screen, where the Product Name (Required), the Product Parent and an Image associated with the product can be informed;
-* 1 query and product management screen, where products can be filtered by the fields of inclusion and additionally allows the exclusion and / or modification of the same.
-
-* 1 CRUD of Clients;
-* 1 CRUD of Accounts;
-* 1 Transfer or Aport function;
-* 1 Historic function where you can make Estornos too;
