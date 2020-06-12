@@ -1,0 +1,14 @@
+com\avenue\model\Cliente.class
+com\avenue\model\Conta.class
+com\avenue\controller\ContaController.class
+com\avenue\model\Historico.class
+com\avenue\service\HistoricoService.class
+com\avenue\repository\ContaRepository.class
+com\avenue\controller\ClienteController.class
+com\avenue\controller\HistoricoController.class
+com\avenue\repository\HistoricoRepository.class
+com\avenue\repository\ClienteRepository.class
+com\avenue\controller\HomeController.class
+com\avenue\service\ContaService.class
+com\avenue\HubfintechApplication.class
+com\avenue\service\ClienteService.class

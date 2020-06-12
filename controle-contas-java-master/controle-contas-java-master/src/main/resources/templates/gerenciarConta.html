@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Conta</title>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet"></link>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<script th:inline="javascript">
+
+	function modificaTipoConta(tipoConta) {
+		
+		if(tipoConta == 'MATRIZ') {
+			document.getElementById('contapai').style.display = 'none';
+		} else {
+			document.getElementById('contapai').style.display = 'inline';
+		}	
+	
+	}
+	
+    window.onload = function () {
+    	
+    	var tipoConta = document.getElementById('tipocontavalue').value;
+		
+    	if(tipoConta == 'MATRIZ') {
+			document.getElementById('contapai').style.display = 'none';
+		} else {
+			document.getElementById('contapai').style.display = 'inline';
+		}	
+    }
+    
+    
+</script>
+	<nav class="navbar navbar-inverse navbar-fixed-top"
+		th:fragment="header">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".nav-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Hubfintech!</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li th:classappend="${module == 'tasks-ld' ? 'active' : ''}">
+                    <a href="#" th:href="@{/}">Home</a>
+               	    </li>
+					<li th:classappend="${module == 'tasks-ld' ? 'active' : ''}">
+						<a href="#" th:href="@{/cliente/clientes}">Clientes</a>
+					</li>
+					<li th:classappend="${module == 'tasks-ld' ? 'active' : ''}">
+						<a href="#" th:href="@{/conta/contas}">Contas</a>
+					</li>
+					<li th:classappend="${module == 'tasks-ld' ? 'active' : ''}">
+						<a href="#" th:href="@{/historico/historicos}">Histórico</a>
+					</li>
+					<li th:classappend="${module == 'tasks-ld' ? 'active' : ''}">
+						<a href="#" th:href="@{/addHistorico}">Nova Transferência</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<strong>Conta</strong>
+		</div>
+		<div class="panel-body">
+			<form class="form-horizontal" th:object="${conta}"
+				th:action="@{/salvarConta}" method="POST" style="margin: 10px">
+				<div class="form-group">
+					<fieldset>
+						<div class="form-group row">
+							<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+								<div th:each="detailedError : ${#fields.detailedErrors()}">
+									<span th:text="${detailedError.message}"></span>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-1">
+								<input type="text" class="form-control input-sm" id="id"
+									th:field="*{id}" readOnly="readonly" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-4"
+								th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
+								<label>Nome do Banco: </label> <input type="text"
+									class="form-control input-sm" th:field="*{nome}"
+									autofocus="autofocus" placeholder="Informe o nome do banco"
+									maxlength="50" />
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<div class="col-md-4"
+								th:classappend="${#fields.hasErrors('numero')}? 'has-error'">
+								<label>Número da Conta: </label> <input type="text"
+									class="form-control input-sm" th:field="*{numero}"
+									autofocus="autofocus" placeholder="Informe o número da conta"
+									maxlength="50" />
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<div class="col-md-4"
+								th:classappend="${#fields.hasErrors('saldo')}? 'has-error'">
+								<label>Saldo: </label> <input type="number"
+									class="form-control input-sm" th:field="*{saldo}"
+									autofocus="autofocus" placeholder="Informe o saldo"
+									maxlength="50" />
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<div class="col-md-4"
+								th:classappend="${#fields.hasErrors('cliente')}? 'has-error'">
+								<label>Cliente: </label> <select th:field="*{cliente}" >
+									<option value="">Selecione</option>
+									<option th:each="cliente : ${clientes}"
+										th:value="${cliente.id}" th:text="${cliente.nome}" />
+								</select>
+							</div>
+							
+						</div>
+						
+						<div class="form-group row" id="tipoconta">
+							<div class="col-md-4">
+								<label>Situação da Conta</label> <select th:field="*{situacao}" onchange="modificaTipoConta(this.value)">
+									<option value="ATIVA">Ativa</option>
+									<option value="BLOQUEADA">Bloqueada</option>
+									<option value="CANCELADA">Cancelada</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group row" id="tipoconta">
+							<div class="col-md-4">
+								<label>Tipo de Conta</label> <select th:field="*{tipoConta}" 
+								onchange="modificaTipoConta(this.value)" id="tipocontavalue">
+									<option value="MATRIZ">Matriz</option>
+									<option value="FILIAL">Filial</option>
+								</select>
+							</div>
+						</div>
+						
+						
+						<div class="form-group row" id="contapai">
+							<div class="col-md-4">
+								<label>Conta Pai: </label> <select th:field="*{contaPai}">
+									<option value="">Selecione</option>
+									<option th:each="contapai : ${contas}"
+										th:value="${contapai.id}" th:text="${contapai.nome}" />
+								</select>
+							</div>
+							<label
+								th:text="${conta.nomeContaPai} != null ? 'Conta Pai atual: '+${conta.nomeContaPai}  : ''"></label>
+						</div>
+						
+
+					</fieldset>
+				</div>
+				<div class="form-group row">
+					<button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+					<a th:href="@{/conta/contas}" class="btn btn-sm btn-default">Cancelar</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
